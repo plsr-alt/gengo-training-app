@@ -8,11 +8,27 @@ export interface FactEmotionContent {
   assumptions: number[];
 }
 
+export interface CausalMapContent {
+  theme: string;
+  nodes: { id: string; text: string }[];
+  edges: { from: string; to: string }[];
+}
+
+export interface TranslateContent {
+  term: string;
+  answer: string;
+  difficulty: string;
+  score: number;
+  flaggedWords: string[];
+}
+
+export type WorkContent = FactEmotionContent | CausalMapContent | TranslateContent;
+
 export interface Work {
   id: string;
   workType: 'fact_emotion' | 'causal_map' | 'translate';
   title: string;
-  content: FactEmotionContent;
+  content: WorkContent;
   createdAt: string;
 }
 

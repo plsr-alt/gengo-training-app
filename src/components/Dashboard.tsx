@@ -8,7 +8,7 @@ import {
   GitBranch,
   History,
   Languages,
-  Lock,
+
 } from 'lucide-react';
 
 interface WorkHistory {
@@ -89,29 +89,45 @@ export default function Dashboard({ userName, streakCount, recentWorks }: Dashbo
               </div>
             </Link>
 
-            <div className="rounded-2xl bg-slate-100 p-5 text-slate-400 ring-1 ring-slate-200">
+            <Link
+              href="/work/causal-map"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-indigo-200"
+            >
               <div className="flex items-start justify-between">
-                <div className="rounded-xl bg-slate-200 p-3"><GitBranch className="h-6 w-6" /></div>
-                <span className="rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-500">Coming Soon</span>
+                <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
+                  <GitBranch className="h-6 w-6" />
+                </div>
+                <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-xs font-semibold text-white">Active</span>
               </div>
               <div className="mt-4">
-                <h2 className="text-lg font-semibold text-slate-500">因果関係マッピング</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-500">出来事のつながりを整理して、考え方のパターンを見つけるワークです。</p>
+                <h2 className="text-lg font-semibold text-slate-900">因果関係マッピング</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">出来事のつながりを整理して、考え方のパターンを見つけるワークです。</p>
               </div>
-              <div className="mt-5 flex items-center gap-2 text-sm font-semibold"><Lock className="h-4 w-4" />準備中</div>
-            </div>
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                はじめる
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </div>
+            </Link>
 
-            <div className="rounded-2xl bg-slate-100 p-5 text-slate-400 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-1">
+            <Link
+              href="/work/translate"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-indigo-200 sm:col-span-2 lg:col-span-1"
+            >
               <div className="flex items-start justify-between">
-                <div className="rounded-xl bg-slate-200 p-3"><Languages className="h-6 w-6" /></div>
-                <span className="rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-500">Coming Soon</span>
+                <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
+                  <Languages className="h-6 w-6" />
+                </div>
+                <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-xs font-semibold text-white">Active</span>
               </div>
               <div className="mt-4">
-                <h2 className="text-lg font-semibold text-slate-500">小5翻訳チャレンジ</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-500">むずかしい表現をやさしく言い換える練習に取り組めます。</p>
+                <h2 className="text-lg font-semibold text-slate-900">小5翻訳チャレンジ</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">むずかしい表現をやさしく言い換える練習に取り組めます。</p>
               </div>
-              <div className="mt-5 flex items-center gap-2 text-sm font-semibold"><Lock className="h-4 w-4" />準備中</div>
-            </div>
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                はじめる
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </div>
+            </Link>
           </div>
         </section>
 
