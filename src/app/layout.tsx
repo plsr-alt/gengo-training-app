@@ -16,6 +16,17 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "言語化トレーニング",
   },
+  openGraph: {
+    title: "言語化トレーニング",
+    description: "頭の中のモヤモヤを、誰でも触れる言葉に変える。3つのワークで思考の解像度を上げよう。",
+    type: "website",
+    locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "言語化トレーニング",
+    description: "頭の中のモヤモヤを、誰でも触れる言葉に変える。3つのワークで思考の解像度を上げよう。",
+  },
 };
 
 export const viewport: Viewport = {

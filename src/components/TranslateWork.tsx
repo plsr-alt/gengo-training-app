@@ -19,42 +19,65 @@ interface Props {
 interface Term {
   word: string;
   difficulty: "beginner" | "intermediate" | "advanced";
+  category: string;
 }
 
 const TERMS: Term[] = [
-  // Beginner (10)
-  { word: "サブスクリプション", difficulty: "beginner" },
-  { word: "アジェンダ", difficulty: "beginner" },
-  { word: "コンセンサス", difficulty: "beginner" },
-  { word: "エビデンス", difficulty: "beginner" },
-  { word: "スキーム", difficulty: "beginner" },
-  { word: "リスクヘッジ", difficulty: "beginner" },
-  { word: "ペルソナ", difficulty: "beginner" },
-  { word: "KPI", difficulty: "beginner" },
-  { word: "PDCA", difficulty: "beginner" },
-  { word: "ローンチ", difficulty: "beginner" },
-  // Intermediate (10)
-  { word: "DX", difficulty: "intermediate" },
-  { word: "SaaS", difficulty: "intermediate" },
-  { word: "アジャイル", difficulty: "intermediate" },
-  { word: "MVP", difficulty: "intermediate" },
-  { word: "OKR", difficulty: "intermediate" },
-  { word: "リテンション", difficulty: "intermediate" },
-  { word: "コンバージョン", difficulty: "intermediate" },
-  { word: "チャーンレート", difficulty: "intermediate" },
-  { word: "PMF", difficulty: "intermediate" },
-  { word: "UX", difficulty: "intermediate" },
-  // Advanced (10)
-  { word: "クォンタム・コンピューティング", difficulty: "advanced" },
-  { word: "ブロックチェーン", difficulty: "advanced" },
-  { word: "ゼロトラスト", difficulty: "advanced" },
-  { word: "マイクロサービス", difficulty: "advanced" },
-  { word: "DevOps", difficulty: "advanced" },
-  { word: "CI/CD", difficulty: "advanced" },
-  { word: "GraphQL", difficulty: "advanced" },
-  { word: "コンテナオーケストレーション", difficulty: "advanced" },
-  { word: "機械学習", difficulty: "advanced" },
-  { word: "自然言語処理", difficulty: "advanced" },
+  // IT/Business - Beginner (10)
+  { word: "サブスクリプション", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "アジェンダ", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "コンセンサス", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "エビデンス", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "スキーム", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "リスクヘッジ", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "ペルソナ", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "KPI", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "PDCA", difficulty: "beginner", category: "IT/ビジネス" },
+  { word: "ローンチ", difficulty: "beginner", category: "IT/ビジネス" },
+  // Medical/Health - Beginner (10)
+  { word: "インフォームドコンセント", difficulty: "beginner", category: "医療/健康" },
+  { word: "メンタルヘルス", difficulty: "beginner", category: "医療/健康" },
+  { word: "QOL", difficulty: "beginner", category: "医療/健康" },
+  { word: "バイタルサイン", difficulty: "beginner", category: "医療/健康" },
+  { word: "リハビリテーション", difficulty: "beginner", category: "医療/健康" },
+  { word: "セカンドオピニオン", difficulty: "beginner", category: "医療/健康" },
+  { word: "ターミナルケア", difficulty: "beginner", category: "医療/健康" },
+  { word: "プライマリケア", difficulty: "beginner", category: "医療/健康" },
+  { word: "パンデミック", difficulty: "beginner", category: "医療/健康" },
+  { word: "エビデンスベースドメディスン", difficulty: "beginner", category: "医療/健康" },
+  // Education - Beginner (10)
+  { word: "アクティブラーニング", difficulty: "beginner", category: "教育" },
+  { word: "STEAM教育", difficulty: "beginner", category: "教育" },
+  { word: "リテラシー", difficulty: "beginner", category: "教育" },
+  { word: "カリキュラム", difficulty: "beginner", category: "教育" },
+  { word: "ファシリテーション", difficulty: "beginner", category: "教育" },
+  { word: "ポートフォリオ", difficulty: "beginner", category: "教育" },
+  { word: "コンピテンシー", difficulty: "beginner", category: "教育" },
+  { word: "インクルーシブ教育", difficulty: "beginner", category: "教育" },
+  { word: "ルーブリック", difficulty: "beginner", category: "教育" },
+  { word: "ギフテッド教育", difficulty: "beginner", category: "教育" },
+  // IT/Business - Intermediate (10)
+  { word: "DX", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "SaaS", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "アジャイル", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "MVP", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "OKR", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "リテンション", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "コンバージョン", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "チャーンレート", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "PMF", difficulty: "intermediate", category: "IT/ビジネス" },
+  { word: "UX", difficulty: "intermediate", category: "IT/ビジネス" },
+  // IT/Business - Advanced (10)
+  { word: "クォンタム・コンピューティング", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "ブロックチェーン", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "ゼロトラスト", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "マイクロサービス", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "DevOps", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "CI/CD", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "GraphQL", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "コンテナオーケストレーション", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "機械学習", difficulty: "advanced", category: "IT/ビジネス" },
+  { word: "自然言語処理", difficulty: "advanced", category: "IT/ビジネス" },
 ];
 
 // Jargon/katakana patterns to detect in answers
@@ -65,6 +88,12 @@ const DIFFICULTY_LABEL: Record<string, { label: string; color: string; bg: strin
   beginner: { label: "初級", color: "text-green-700", bg: "bg-green-100" },
   intermediate: { label: "中級", color: "text-yellow-700", bg: "bg-yellow-100" },
   advanced: { label: "上級", color: "text-red-700", bg: "bg-red-100" },
+};
+
+const CATEGORY_STYLE: Record<string, { color: string; bg: string }> = {
+  "IT/ビジネス": { color: "text-blue-700", bg: "bg-blue-100" },
+  "医療/健康": { color: "text-rose-700", bg: "bg-rose-100" },
+  "教育": { color: "text-emerald-700", bg: "bg-emerald-100" },
 };
 
 function pickRandom(exclude?: string): Term {
@@ -129,6 +158,7 @@ export default function TranslateWork({ onSave, isLoading = false }: Props) {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const diffMeta = DIFFICULTY_LABEL[currentTerm.difficulty];
+  const catMeta = CATEGORY_STYLE[currentTerm.category] || { color: "text-slate-700", bg: "bg-slate-100" };
 
   const handleSubmit = () => {
     const trimmed = answer.trim();
@@ -189,9 +219,14 @@ export default function TranslateWork({ onSave, isLoading = false }: Props) {
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-indigo-600">お題</p>
-            <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${diffMeta.bg} ${diffMeta.color}`}>
-              {diffMeta.label}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${catMeta.bg} ${catMeta.color}`}>
+                {currentTerm.category}
+              </span>
+              <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${diffMeta.bg} ${diffMeta.color}`}>
+                {diffMeta.label}
+              </span>
+            </div>
           </div>
           <div className="mt-3 flex items-center justify-center rounded-2xl border border-indigo-200 bg-white p-6">
             <h2 className="text-center text-2xl font-bold text-slate-900">{currentTerm.word}</h2>

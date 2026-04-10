@@ -1,25 +1,27 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Share2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import TranslateWork from '@/components/TranslateWork';
 import type { TranslateContent } from '@/components/TranslateWork';
 import { saveWork } from '@/lib/storage';
 
 export default function TranslatePage() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [completed, setCompleted] = useState(false);
+  const [savedTitle, setSavedTitle] = useState('');
+  const [savedScore, setSavedScore] = useState(0);
 
   const handleSave = (content: TranslateContent) => {
     setIsLoading(true);
     setError('');
     try {
+      const title = `${content.term}（${content.score}点）`;
       const result = saveWork({
         workType: 'translate',
-        title: `${content.term}（${content.score}点）`,
+        title,
         content,
       });
       if (!result) {
@@ -27,12 +29,76 @@ export default function TranslatePage() {
         setIsLoading(false);
         return;
       }
-      setTimeout(() => router.push('/dashboard'), 1500);
+      setSavedTitle(title);
+      setSavedScore(content.score);
+      setCompleted(true);
+      setIsLoading(false);
     } catch {
       setError('保存中にエラーが発生しました。もう一度お試しください。');
       setIsLoading(false);
     }
   };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: '言語化トレーニング',
+        text: `小5翻訳チャレンジで${savedScore}点を獲得しました！`,
+        url: window.location.origin,
+      });
+    } else {
+      await navigator.clipboard.writeText(
+        `小5翻訳チャレンジで${savedScore}点を獲得しました！ ${window.location.origin}`
+      );
+      alert('クリップボードにコピーしました');
+    }
+  };
+
+  if (completed) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+        <div className="w-full max-w-md text-center">
+          <div className="rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-200">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle className="h-8 w-8 text-green-600" />
+            </div>
+            <h2 className="mt-5 text-2xl font-bold text-slate-900">ワーク完了！</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              やさしく伝える力が磨かれました。スコア: {savedScore}点
+            </p>
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left">
+              <p className="text-xs font-medium text-slate-500">保存したワーク</p>
+              <p className="mt-1 truncate text-sm font-semibold text-slate-900">{savedTitle}</p>
+              <p className="mt-1 text-xs text-slate-400">小5翻訳チャレンジ</p>
+            </div>
+            <div className="mt-6 space-y-3">
+              <Link
+                href="/work/fact-emotion"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+              >
+                次のワークへ
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <button
+                type="button"
+                onClick={handleShare}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-indigo-200 bg-white px-5 py-3 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50"
+              >
+                <Share2 className="h-4 w-4" />
+                シェアする
+              </button>
+              <Link
+                href="/dashboard"
+                className="block text-sm font-medium text-slate-500 transition hover:text-indigo-600"
+              >
+                ダッシュボードに戻る
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 py-6">

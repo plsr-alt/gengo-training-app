@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ONBOARDED_KEY = 'gengo_onboarded';
 
@@ -64,45 +65,33 @@ const steps = [
   },
   {
     emoji: '🚀',
-    title: 'さっそく始めましょう',
+    title: '最初のワークを体験しよう',
     body: (
       <div className="space-y-4 text-sm leading-relaxed text-slate-600">
-        <p>
-          ダッシュボードから好きなワークを選んで、すぐに始められます。
-        </p>
-        <div className="space-y-2">
-          <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
-            <span className="text-xl">🧩</span>
+        <div className="rounded-2xl border-2 border-indigo-200 bg-indigo-50 p-4">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🧩</span>
             <div>
-              <p className="font-semibold text-slate-800">事実/感情仕分け</p>
-              <p className="text-xs text-slate-500">初めての方におすすめ</p>
+              <p className="font-bold text-indigo-900">思考の仕分けボックス</p>
+              <p className="text-xs text-indigo-600">事実/感情仕分けワーク</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
-            <span className="text-xl">🔗</span>
-            <div>
-              <p className="font-semibold text-slate-800">因果関係マッピング</p>
-              <p className="text-xs text-slate-500">つながりを可視化</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
-            <span className="text-xl">📖</span>
-            <div>
-              <p className="font-semibold text-slate-800">小5翻訳チャレンジ</p>
-              <p className="text-xs text-slate-500">やさしく言い換える力</p>
-            </div>
-          </div>
+          <p className="mt-3 text-slate-700">
+            日常の出来事を「事実」と「感情」に分けるだけ。頭の中がスッキリ整理されます。
+          </p>
         </div>
         <p className="font-semibold text-slate-800">
-          まずは1つ、試してみてください。
+          最初のワークは「思考の仕分けボックス」。3分で終わります。
         </p>
       </div>
     ),
+    cta: '/work/fact-emotion',
   },
 ];
 
 export default function Onboarding({ onComplete }: OnboardingProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const router = useRouter();
 
   const finish = useCallback(() => {
     if (typeof window !== 'undefined') {
@@ -115,7 +104,11 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      const currentStepData = steps[currentStep];
       finish();
+      if ('cta' in currentStepData && currentStepData.cta) {
+        router.push(currentStepData.cta as string);
+      }
     }
   };
 
@@ -165,7 +158,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               onClick={handleNext}
               className="rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-indigo-700"
             >
-              {isLast ? 'はじめる' : '次へ'}
+              {isLast ? 'ワークを始める' : '次へ'}
             </button>
           </div>
         </div>
