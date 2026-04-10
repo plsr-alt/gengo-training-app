@@ -27,6 +27,7 @@ export default function HistoryPage() {
   }, []);
 
   const handleDelete = (id: string) => {
+    if (!window.confirm('このワークを削除しますか? この操作は取り消せません。')) return;
     deleteWork(id);
     setWorks(getWorks());
   };
