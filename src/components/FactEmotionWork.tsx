@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Check, Plus, Save, Trash2 } from "lucide-react";
+import { AlertTriangle, Check, ChevronDown, ChevronUp, Eye, Plus, Save, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 export interface FactEmotionContent {
@@ -33,6 +33,7 @@ export default function FactEmotionWork({
   const [assumptions, setAssumptions] = useState<number[]>([]);
   const [validationError, setValidationError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showExample, setShowExample] = useState(false);
 
   const addFact = () => {
     const nextFact = factInput.trim();
@@ -108,6 +109,54 @@ export default function FactEmotionWork({
       )}
 
       <div className="space-y-6">
+        {/* Example section */}
+        <div className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+          <button
+            type="button"
+            onClick={() => setShowExample(!showExample)}
+            className="flex w-full items-center justify-between text-left"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold text-indigo-600">
+              <Eye className="h-4 w-4" />
+              例を見る
+            </span>
+            {showExample ? (
+              <ChevronUp className="h-4 w-4 text-indigo-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-indigo-400" />
+            )}
+          </button>
+          {showExample && (
+            <div className="mt-4 space-y-3">
+              <div className="rounded-xl bg-white p-3">
+                <p className="text-xs font-bold text-slate-500">出来事</p>
+                <p className="mt-1 text-sm text-slate-800">会議で自分の提案を上司に否定された</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <p className="text-xs font-bold text-emerald-700">事実</p>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    <li>・上司が「再検討してほしい」と言った</li>
+                    <li>・他の3人は発言しなかった</li>
+                    <li>・会議は予定通り30分で終了した</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+                  <p className="text-xs font-bold text-amber-700">感情</p>
+                  <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                    <li>・自分の意見は価値がないと感じた</li>
+                    <li>・上司に嫌われたかもしれない</li>
+                    <li>・もう提案するのはやめようと思った</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400">
+                このように、起きたことと感じたことを分けて書いてみましょう。
+              </p>
+            </div>
+          )}
+        </div>
+
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <p className="text-sm font-semibold text-indigo-600">Step 1</p>
           <label htmlFor="trigger" className="mt-1 block text-lg font-semibold text-slate-900">

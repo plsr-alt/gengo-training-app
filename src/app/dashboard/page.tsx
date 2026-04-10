@@ -2,13 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import Dashboard from '@/components/Dashboard';
+import Onboarding from '@/components/Onboarding';
 import { getWorks, getStats } from '@/lib/storage';
+
+const ONBOARDED_KEY = 'gengo_onboarded';
 
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== 'undefined') {
+      const onboarded = localStorage.getItem(ONBOARDED_KEY);
+      if (!onboarded) {
+        setShowOnboarding(true);
+      }
+    }
   }, []);
 
   if (!mounted) {
@@ -30,10 +40,15 @@ export default function DashboardPage() {
   }));
 
   return (
-    <Dashboard
-      userName="ゲスト"
-      streakCount={stats.streakCount}
-      recentWorks={recentWorks}
-    />
+    <>
+      {showOnboarding && (
+        <Onboarding onComplete={() => setShowOnboarding(false)} />
+      )}
+      <Dashboard
+        userName="ゲスト"
+        streakCount={stats.streakCount}
+        recentWorks={recentWorks}
+      />
+    </>
   );
 }

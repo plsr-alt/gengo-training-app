@@ -5,6 +5,30 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';
 import { getWork, type Work, type FactEmotionContent, type CausalMapContent, type TranslateContent } from '@/lib/storage';
+import ShareButton from '@/components/ShareButton';
+
+function buildShareText(work: Work): string {
+  const typeLabels: Record<string, string> = {
+    fact_emotion: '事実/感情仕分け',
+    causal_map: '因果関係マッピング',
+    translate: '小5翻訳チャレンジ',
+  };
+  const label = typeLabels[work.workType] || work.workType;
+
+  if (work.workType === 'fact_emotion') {
+    const c = work.content as FactEmotionContent;
+    return `【${label}】${c.trigger}\n事実${c.facts.length}件 / 感情${c.emotions.length}件を整理しました #言語化トレーニング`;
+  }
+  if (work.workType === 'translate') {
+    const c = work.content as TranslateContent;
+    return `【${label}】「${c.term}」をやさしく言い換え！スコア: ${c.score}/100 #言語化トレーニング`;
+  }
+  if (work.workType === 'causal_map') {
+    const c = work.content as CausalMapContent;
+    return `【${label}】「${c.theme}」の因果関係を${c.nodes.length}個のノードで整理しました #言語化トレーニング`;
+  }
+  return `言語化トレーニングでワークに取り組みました #言語化トレーニング`;
+}
 
 export default function WorkDetailPage() {
   const params = useParams();
@@ -145,6 +169,13 @@ export default function WorkDetailPage() {
           {work.workType === 'fact_emotion' && renderFactEmotion(work.content as FactEmotionContent)}
           {work.workType === 'causal_map' && renderCausalMap(work.content as CausalMapContent)}
           {work.workType === 'translate' && renderTranslate(work.content as TranslateContent)}
+        </div>
+
+        <div className="mt-8">
+          <ShareButton
+            title={`言語化トレーニング: ${work.title}`}
+            text={buildShareText(work)}
+          />
         </div>
       </div>
     </div>
