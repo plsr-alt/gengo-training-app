@@ -17,8 +17,10 @@ export interface CausalMapContent {
 export interface TranslateContent {
   term: string;
   answer: string;
-  difficulty: string;
+  difficulty?: string;
   score: number;
+  examples?: string[];
+  ngWords?: string[];
   flaggedWords: string[];
 }
 
