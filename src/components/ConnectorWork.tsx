@@ -1,8 +1,9 @@
 "use client";
 
-import { AlertTriangle, Check, Save } from "lucide-react";
+import { AlertTriangle, Check, ChevronDown, ChevronUp, Eye, Save } from "lucide-react";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
+import { CONNECTOR_EXAMPLES } from "@/lib/examples";
 
 export interface ConnectorContent {
   original: string;
@@ -164,6 +165,7 @@ export default function ConnectorWork({ onSave, isLoading = false }: Props) {
   });
   const [validationError, setValidationError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showExample, setShowExample] = useState(false);
 
   const detections = useMemo(() => detectBadConnectors(rewritten), [rewritten]);
 
@@ -268,6 +270,41 @@ export default function ConnectorWork({ onSave, isLoading = false }: Props) {
             「し・り・て・が」で話をつなぐと、因果関係や主張の芯がぼやけやすくなります。
             接続詞を明示して、読み手が一度で意図を追える文に整えましょう。
           </p>
+          <button
+            type="button"
+            onClick={() => setShowExample((current) => !current)}
+            className="mt-3 flex w-full items-center justify-between text-left"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold text-indigo-600">
+              <Eye className="h-4 w-4" />
+              {selectedOriginal && CONNECTOR_EXAMPLES[selectedOriginal] ? "このお題の回答例を見る" : "回答例を見る"}
+            </span>
+            {showExample ? (
+              <ChevronUp className="h-4 w-4 text-indigo-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-indigo-400" />
+            )}
+          </button>
+          {showExample && (() => {
+            const exampleKey = selectedOriginal || PRESETS[0];
+            const exampleRewrite = CONNECTOR_EXAMPLES[exampleKey];
+            if (!exampleRewrite) return null;
+            return (
+              <div className="mt-4 space-y-3">
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+                  <p className="text-xs font-bold text-amber-700">元の文（悪い例）</p>
+                  <p className="mt-2 text-sm text-slate-700">{exampleKey}</p>
+                </div>
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <p className="text-xs font-bold text-emerald-700">書き換え例（良い例）</p>
+                  <p className="mt-2 text-sm text-slate-700">{exampleRewrite}</p>
+                </div>
+                <p className="text-xs text-slate-400">
+                  「だから」「したがって」「一方で」など、論理的な接続詞で因果関係を明示しています。
+                </p>
+              </div>
+            );
+          })()}
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">

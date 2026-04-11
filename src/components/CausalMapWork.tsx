@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowDown, Check, GitBranch, Plus, Save, Trash2 } from "lucide-react";
+import { ArrowDown, Check, ChevronDown, ChevronUp, Eye, GitBranch, Plus, Save, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { CAUSAL_MAP_EXAMPLE } from "@/lib/examples";
 
 export interface CausalMapContent {
   theme: string;
@@ -27,6 +28,7 @@ export default function CausalMapWork({ onSave, isLoading = false }: Props) {
   const [branchFromId, setBranchFromId] = useState<string | null>(null);
   const [validationError, setValidationError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showExample, setShowExample] = useState(false);
 
   const addNode = (text: string, parentId?: string) => {
     const trimmed = text.trim();
@@ -173,6 +175,52 @@ export default function CausalMapWork({ onSave, isLoading = false }: Props) {
       )}
 
       <div className="space-y-6">
+        <div className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+          <button
+            type="button"
+            onClick={() => setShowExample((current) => !current)}
+            className="flex w-full items-center justify-between text-left"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold text-indigo-600">
+              <Eye className="h-4 w-4" />
+              例を見る
+            </span>
+            {showExample ? (
+              <ChevronUp className="h-4 w-4 text-indigo-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-indigo-400" />
+            )}
+          </button>
+          {showExample && (
+            <div className="mt-4 space-y-3">
+              <div className="rounded-xl bg-white p-3">
+                <p className="text-xs font-bold text-slate-500">テーマ</p>
+                <p className="mt-1 text-sm text-slate-800">{CAUSAL_MAP_EXAMPLE.theme}</p>
+              </div>
+              <div className="rounded-xl border border-sky-200 bg-sky-50 p-3">
+                <p className="text-xs font-bold text-sky-700">ノード（原因の連鎖）</p>
+                <div className="mt-2 flex flex-col items-center gap-1">
+                  {CAUSAL_MAP_EXAMPLE.nodes.map((node, index) => (
+                    <div key={node.id}>
+                      <span className="inline-block rounded-lg bg-white px-3 py-1.5 text-sm text-slate-700 ring-1 ring-slate-200">
+                        {node.text}
+                      </span>
+                      {index < CAUSAL_MAP_EXAMPLE.nodes.length - 1 && (
+                        <div className="flex justify-center">
+                          <ArrowDown className="my-1 h-4 w-4 text-sky-400" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-slate-400">
+                「なぜ？」を繰り返して原因を深掘りし、矢印でつなげた例です。
+              </p>
+            </div>
+          )}
+        </div>
+
         {/* Step 1: Theme */}
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <p className="text-sm font-semibold text-indigo-600">Step 1</p>

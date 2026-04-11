@@ -1,7 +1,8 @@
 "use client";
 
-import { Check, Save } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Eye, Save } from "lucide-react";
 import { useMemo, useState } from "react";
+import { PYRAMID_EXAMPLES } from "@/lib/examples";
 
 export interface PyramidContent {
   topic: string;
@@ -44,6 +45,7 @@ export default function PyramidWork({
   });
   const [validationError, setValidationError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showExample, setShowExample] = useState(false);
 
   const topic = useMemo(() => {
     const trimmedCustomTopic = customTopic.trim();
@@ -111,6 +113,47 @@ export default function PyramidWork({
       )}
 
       <div className="space-y-6">
+        <div className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+          <button
+            type="button"
+            onClick={() => setShowExample((current) => !current)}
+            className="flex w-full items-center justify-between text-left"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold text-indigo-600">
+              <Eye className="h-4 w-4" />
+              {topic && PYRAMID_EXAMPLES[topic] ? "この お題の回答例を見る" : "回答例を見る"}
+            </span>
+            {showExample ? (
+              <ChevronUp className="h-4 w-4 text-indigo-400" />
+            ) : (
+              <ChevronDown className="h-4 w-4 text-indigo-400" />
+            )}
+          </button>
+          {showExample && (() => {
+            const example = (topic && PYRAMID_EXAMPLES[topic]) || PYRAMID_EXAMPLES["リモートワークは生産性を上げるか？"];
+            if (!example) return null;
+            return (
+              <div className="mt-4 space-y-3">
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <p className="text-xs font-bold text-emerald-700">結論</p>
+                  <p className="mt-2 text-sm text-slate-700">{example.conclusion}</p>
+                </div>
+                <div className="space-y-2">
+                  {example.reasons.map((reason, index) => (
+                    <div key={`ex-reason-${index}`} className="rounded-xl border border-sky-200 bg-sky-50 p-3">
+                      <p className="text-xs font-bold text-sky-700">理由 {index + 1}</p>
+                      <p className="mt-2 text-sm text-slate-700">{reason}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-400">
+                  結論→理由の順で、MECEに整理されている例です。自分の言葉で書き直してみましょう。
+                </p>
+              </div>
+            );
+          })()}
+        </div>
+
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
           <p className="text-sm font-semibold text-indigo-600">Step 1</p>
           <h2 className="mt-1 text-lg font-semibold text-slate-900">お題を選ぶ</h2>
