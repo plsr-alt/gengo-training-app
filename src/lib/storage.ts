@@ -113,6 +113,15 @@ export function saveWork(work: Omit<Work, 'id' | 'createdAt'>): Work | null {
   return newWork;
 }
 
+export function updateWork(id: string, updates: Partial<Omit<Work, 'id' | 'createdAt'>>): Work | null {
+  const works = getWorks();
+  const index = works.findIndex((w) => w.id === id);
+  if (index === -1) return null;
+  works[index] = { ...works[index], ...updates };
+  const saved = saveToStorage(WORKS_KEY, works);
+  return saved ? works[index] : null;
+}
+
 export function deleteWork(id: string): void {
   const works = getWorks().filter((w) => w.id !== id);
   saveToStorage(WORKS_KEY, works);
