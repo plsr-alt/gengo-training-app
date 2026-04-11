@@ -24,11 +24,35 @@ export interface TranslateContent {
   flaggedWords: string[];
 }
 
-export type WorkContent = FactEmotionContent | CausalMapContent | TranslateContent;
+export interface PyramidContent {
+  topic: string;
+  conclusion: string;
+  reasons: string[];
+  selfCheck: { summarized: boolean; mece: boolean; directSupport: boolean };
+}
+
+export interface OPQContent {
+  scenario: string;
+  objective: string;
+  problem: string;
+  question: string;
+  selfCheck: { measurable: boolean; gapClear: boolean; actionable: boolean };
+}
+
+export interface ConnectorContent {
+  original: string;
+  rewritten: string;
+  remainingBadConnectors: string[];
+  selfCheck: { eliminated: boolean; causalClear: boolean; claimClear: boolean };
+}
+
+export type WorkContent = FactEmotionContent | CausalMapContent | TranslateContent | PyramidContent | OPQContent | ConnectorContent;
+
+export type WorkType = 'fact_emotion' | 'causal_map' | 'translate' | 'pyramid' | 'opq' | 'connector';
 
 export interface Work {
   id: string;
-  workType: 'fact_emotion' | 'causal_map' | 'translate';
+  workType: WorkType;
   title: string;
   content: WorkContent;
   createdAt: string;

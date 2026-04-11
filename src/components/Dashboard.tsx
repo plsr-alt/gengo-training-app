@@ -8,12 +8,16 @@ import {
   GitBranch,
   History,
   Languages,
-
+  Triangle,
+  Target,
+  Link2,
 } from 'lucide-react';
+
+import type { WorkType } from '@/lib/storage';
 
 interface WorkHistory {
   id: string;
-  workType: 'fact_emotion' | 'causal_map' | 'translate';
+  workType: WorkType;
   title: string;
   createdAt: string;
 }
@@ -25,7 +29,7 @@ interface DashboardProps {
 }
 
 const workTypeMeta: Record<
-  WorkHistory['workType'],
+  WorkType,
   { label: string; icon: typeof Brain }
 > = {
   fact_emotion: {
@@ -39,6 +43,18 @@ const workTypeMeta: Record<
   translate: {
     label: '小5翻訳チャレンジ',
     icon: Languages,
+  },
+  pyramid: {
+    label: 'ピラミッド構造',
+    icon: Triangle,
+  },
+  opq: {
+    label: 'OPQ分析',
+    icon: Target,
+  },
+  connector: {
+    label: 'しりてが撲滅',
+    icon: Link2,
   },
 };
 
@@ -111,7 +127,7 @@ export default function Dashboard({ userName, streakCount, recentWorks }: Dashbo
 
             <Link
               href="/work/translate"
-              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-indigo-200 sm:col-span-2 lg:col-span-1"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-indigo-200"
             >
               <div className="flex items-start justify-between">
                 <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
@@ -124,6 +140,66 @@ export default function Dashboard({ userName, streakCount, recentWorks }: Dashbo
                 <p className="mt-2 text-sm leading-6 text-slate-600">むずかしい表現をやさしく言い換える練習に取り組めます。</p>
               </div>
               <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                はじめる
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </div>
+            </Link>
+
+            <Link
+              href="/work/pyramid"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-amber-200"
+            >
+              <div className="flex items-start justify-between">
+                <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
+                  <Triangle className="h-6 w-6" />
+                </div>
+                <span className="rounded-full bg-amber-600 px-2.5 py-1 text-xs font-semibold text-white">New</span>
+              </div>
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold text-slate-900">ピラミッド構造</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">結論→理由3つのピラミッドを組み立て、論理的な思考を鍛えます。</p>
+              </div>
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-amber-600">
+                はじめる
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </div>
+            </Link>
+
+            <Link
+              href="/work/opq"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-emerald-200"
+            >
+              <div className="flex items-start justify-between">
+                <div className="rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <Target className="h-6 w-6" />
+                </div>
+                <span className="rounded-full bg-emerald-600 px-2.5 py-1 text-xs font-semibold text-white">New</span>
+              </div>
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold text-slate-900">OPQ分析</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">ビジネスシーンを望ましい状態・問題・問いに分解するワークです。</p>
+              </div>
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-emerald-600">
+                はじめる
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </div>
+            </Link>
+
+            <Link
+              href="/work/connector"
+              className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-rose-200"
+            >
+              <div className="flex items-start justify-between">
+                <div className="rounded-xl bg-rose-50 p-3 text-rose-600">
+                  <Link2 className="h-6 w-6" />
+                </div>
+                <span className="rounded-full bg-rose-600 px-2.5 py-1 text-xs font-semibold text-white">New</span>
+              </div>
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold text-slate-900">しりてが撲滅</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-600">曖昧な接続詞を論理的な表現に書き換え、伝わる文章力を鍛えます。</p>
+              </div>
+              <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-rose-600">
                 はじめる
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
               </div>
